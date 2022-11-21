@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Post;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class PostController extends Controller
 {
@@ -15,6 +17,27 @@ class PostController extends Controller
     public function index()
     {
         //
+        /* $posts = Post::all(); */
+       /*  return response()->json($posts); */
+
+        /* meglio mandare i dati con un success per gestire potenziali errori */
+        try {
+            //code...
+            $posts = Post::all();
+            $data = [
+                'result' => $posts,
+                'success' => true
+            ];
+        } catch(Error $e){
+            //
+            $data = [
+                'result' => $e->message,
+                'success' => false
+            ];
+
+        }
+
+        return response()->json($data);
     }
 
     /**
