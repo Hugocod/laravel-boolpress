@@ -1912,11 +1912,21 @@ __webpack_require__.r(__webpack_exports__);
   name: "PostComponent",
   data: function data() {
     return {
-      posts: []
+      posts: "",
+      errorMessage: "qualcosa non quadra"
     };
   },
   mounted: function mounted() {
+    var _this = this;
     console.log("ciao exist");
+    axios.get("/api/posts").then(function (response) {
+      console.log(response.data.result);
+      if (response.data.success) {
+        _this.posts = response.data.result;
+      } else {
+        _this.errorMessage = response.data.error;
+      }
+    });
   }
 });
 
@@ -1956,7 +1966,11 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("h1", [_vm._v("io sono vue")]);
+  return _c("div", _vm._l(_vm.posts, function (post) {
+    return _c("div", {
+      key: post.id
+    }, [_c("h1", [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(post.content))]), _vm._v(" "), _c("hr")]);
+  }), 0);
 };
 var staticRenderFns = [];
 render._withStripped = true;
