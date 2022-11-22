@@ -1,16 +1,26 @@
 <template>
     <div>
-        <post-component></post-component>
+        <div class="header">
+            <router-link to="/pages/about"> go to about </router-link>
+            <router-link to="/pages/posts"> go to posts </router-link>
+            <router-link to="/"> go to home </router-link>
+        </div>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import PostComponent from "../components/PostComponent.vue";
-
 export default {
     name: "App",
-    components: { PostComponent },
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    height: 100px;
+}
+</style>
